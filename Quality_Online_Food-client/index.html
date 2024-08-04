@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <title>Quality Online Food | Login & Registration</title>
+</head>
+
+<body>
+    <div class="wrapper"
+        style="background-image: url('img/PRI.jpg'); background-repeat: no-repeat; background-size: 100% 100%;">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>Seven Light Market </p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <!-- <li><a href="#" class="link active">Home</a></li> -->
+                    <li><a href="about.html" class="link">About</a></li>
+                    <li><a href="service.html" class="link">Customer Service</a></li>
+                    <!-- <li><a href="#" class="link">About</a></li> -->
+                </ul>
+            </div>
+            <div class="nav-button">
+                <button class="btn white-btn" id="loginBtn" onclick="login()">Sign In</button>
+                <button class="btn" id="registerBtn" onclick="register()">Sign Up</button>
+            </div>
+            <div class="nav-menu-btn">
+                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+            </div>
+        </nav>
+        <!----------------------------- Form box ----------------------------------->
+        <div class="form-box">
+
+            <!------------------- login form -------------------------->
+            <div class="login-container" id="login">
+                <div class="top">
+                    <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
+                    <header>Login</header>
+                </div>
+                <div class="input-box">
+                    <input type="text" class="input-field" placeholder="Username or Email" id="email-input-login">
+                    <i class="bx bx-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" class="input-field" placeholder="Password" id="password-input-login">
+                    <i class="bx bx-lock-alt"></i>
+                </div>
+                <div class="input-box">
+                    <input type="submit" class="submit" onclick="loginClicked()" value="Sign In">
+                </div>
+                <div class="two-col">
+                    <div class="one">
+                        <input type="checkbox" id="login-check">
+                        <label for="login-check"> Remember Me</label>
+                    </div>
+                    <div class="two">
+                        <label><a href="#">Forgot password?</a></label>
+                    </div>
+                </div>
+            </div>
+            <!------------------- registration form -------------------------->
+            <div class="register-container" id="register">
+                <div class="top">
+                    <span>Have an account? <a href="#" onclick="login()">Login</a></span>
+                    <header>Sign Up</header>
+                </div>
+                <div class="two-forms">
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Firstname" id="firstname-input-register">
+                        <i class="bx bx-user"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Lastname" id="lastname-input-register">
+                        <i class="bx bx-user"></i>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <input type="text" class="input-field" placeholder="Email" id="email-input-register">
+                    <i class="bx bx-envelope"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" class="input-field" placeholder="Password" id="password-input-register">
+                    <i class="bx bx-lock-alt"></i>
+                </div>
+                <div class="input-box">
+                    <button type="submit" class="submit" onclick="registerClicked()">Register</button>
+                </div>
+                <div class="two-col">
+                    <div class="one">
+                        <input type="checkbox" id="register-check">
+                        <label for="register-check"> Remember Me</label>
+                    </div>
+                    <div class="two">
+                        <label><a href="#">Terms & conditions</a></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function myMenuFunction() {
+            var i = document.getElementById("navMenu");
+            if (i.className === "nav-menu") {
+                i.className += " responsive";
+            } else {
+                i.className = "nav-menu";
+            }
+        }
+
+        async function registerClicked() {
+            const firstname_input_register = document.getElementById("firstname-input-register").value;
+            const lastname_input_register = document.getElementById("lastname-input-register").value;
+            const email_input_register = document.getElementById('email-input-register').value;
+            const password_input_register = document.getElementById('password-input-register').value;
+            console.log(
+                `In Register with: ${firstname_input_register} and ${lastname_input_register} and ${email_input_register} and ${password_input_register}`
+            );
+
+            const response = await fetch("http://127.0.0.1:3004/Register", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    firstName: firstname_input_register,
+                    lastName: lastname_input_register,
+                    email: email_input_register,
+                    password: password_input_register
+                })
+            });
+            console.log(response);
+            if (response.status === 200) {
+                console.log("It is OK");
+                localStorage.setItem('userEmail', email_input_register);
+                window.location.assign("index.html");
+            } else {
+                window.location.assign("test.html");
+            }
+        }
+
+        async function loginClicked() {
+            const email_input_login = document.getElementById('email-input-login').value;
+            const password_input_login = document.getElementById('password-input-login').value;
+
+            const response = await fetch("http://127.0.0.1:3004/login", {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email_input_login,
+                    password: password_input_login
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                // Store user email and other details if needed
+                localStorage.setItem('userEmail', data.user.email);
+                localStorage.setItem('firstName', data.user.firstName);
+                localStorage.setItem('lastName', data.user.lastName);
+
+                // Redirect to the desired page
+                window.location.assign("paige.html");
+            } else {
+                // Handle error response
+                console.error("Login failed:", await response.text());
+                window.location.assign("test.html");
+            }
+        }
+
+        var a = document.getElementById("loginBtn");
+        var b = document.getElementById("registerBtn");
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+
+        function login() {
+            x.style.left = "4px";
+            y.style.right = "-520px";
+            a.className += " white-btn";
+            b.className = "btn";
+            x.style.opacity = 1;
+            y.style.opacity = 0;
+        }
+
+        function register() {
+            x.style.left = "-510px";
+            y.style.right = "5px";
+            a.className = "btn";
+            b.className += " white-btn";
+            x.style.opacity = 0;
+            y.style.opacity = 1;
+        }
+    </script>
+</body>
+
+</html>

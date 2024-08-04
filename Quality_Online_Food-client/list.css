@@ -1,0 +1,54 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background: url();
+    opacity: 7;
+    background-size: cover;
+  }
+
+  
+
+.invoice-title h2, .invoice-title h3 {
+    display: inline-block;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+h1 {
+    text-align:center;
+    
+}
+
+.logo {position: absolute;
+    top: -382px;
+    left: 757px;
+
+} 
+
+h3 {
+    text-align:center;
+}
+p {
+    text-align:center;
+    margin:  auto;
+}
+h2 {
+    text-align:center;
+}
+img {
+    box-shadow: 2px 2px 4px rgba(255, 254, 254, 0.4);
+    position: absolute;
+    top: 406px;
+    left: 390PX;
+  }
+
+ 
